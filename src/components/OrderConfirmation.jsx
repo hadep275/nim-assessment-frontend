@@ -2,6 +2,9 @@ import React from "react";
 import styles from "./styles/OrderConfirmation.module.css";
 
 function OrderConfirmation({ order }) {
+  if (!order) {
+    return null; // or any fallback component/element you want to render when order is not available
+  }
   const { name, address, id, items } = order;
 
   const calculateTotalPrice = () =>

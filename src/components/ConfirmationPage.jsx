@@ -36,6 +36,7 @@ function ConfirmationPage() {
     <div className={styles.confirmationPage}>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
+      {/* {console.log("order:", order)} */}
       {order && <OrderConfirmation order={order} />}
     </div>
   );
