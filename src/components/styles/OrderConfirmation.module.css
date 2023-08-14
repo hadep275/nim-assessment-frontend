@@ -1,0 +1,42 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .orderId {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .customerDetails {
+    margin-top: 20px;
+  }
+  
+  .itemsList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item {
+    margin-bottom: 15px;
+  }
+  
+  .hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+  }
+  
+  .total {
+    margin-top: 20px;
+  }
+  
+  .subTotal {
+    font-weight: bold;
+  }
+  
+  

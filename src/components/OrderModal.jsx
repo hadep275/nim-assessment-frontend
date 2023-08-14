@@ -5,23 +5,66 @@ function OrderModal({ order, setOrderModal }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+
+  const isValidPhoneNumber = (number) => {
+    const phoneRegex = /^[\d-()]+$/;
+    return phoneRegex.test(number);
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (name.trim() === "") {
+      errors.name = "Please enter your name.";
+    }
+
+    if (phone.trim() === "") {
+      errors.phone = "Please enter your phone number.";
+    } else if (!isValidPhoneNumber(phone)) {
+      errors.phone = "Please enter a valid phone number.";
+    }
+
+    if (address.trim() === "") {
+      errors.address = "Please enter your address.";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const placeOrder = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    const formattedPhone = phone.replace(/[^\d]/g, ""); // Remove non-digits
+    const formattedPhoneWithFormatting = `(${formattedPhone.slice(
+      0,
+      3
+    )}) ${formattedPhone.slice(3, 6)}-${formattedPhone.slice(6, 10)}`;
+
     const response = await fetch("/api/orders", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
-        phone,
+        phone: formattedPhoneWithFormatting,
         address,
-        items: order
-      })
+        items: order,
+      }),
     });
+
     const data = await response.json();
     console.log(data);
   };
+
   return (
     <>
       <div
@@ -50,6 +93,7 @@ function OrderModal({ order, setOrderModal }) {
                 type="text"
                 id="name"
               />
+              <span className={styles.error}>{formErrors.name}</span>
             </label>
           </div>
           <div className={styles.formGroup}>
@@ -60,9 +104,10 @@ function OrderModal({ order, setOrderModal }) {
                   e.preventDefault();
                   setPhone(e.target.value);
                 }}
-                type="phone"
+                type="text"
                 id="phone"
               />
+              <span className={styles.error}>{formErrors.phone}</span>
             </label>
           </div>
           <div className={styles.formGroup}>
@@ -73,9 +118,10 @@ function OrderModal({ order, setOrderModal }) {
                   e.preventDefault();
                   setAddress(e.target.value);
                 }}
-                type="phone"
+                type="text"
                 id="address"
               />
+              <span className={styles.error}>{formErrors.address}</span>
             </label>
           </div>
         </form>
