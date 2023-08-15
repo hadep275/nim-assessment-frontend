@@ -9,12 +9,10 @@ function ConfirmationPage() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchOrder = async (orderId) => {
+  const fetchOrder = async () => { 
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/orders/${orderId}`
-      );
-
+      const response = await fetch(`/api/orders/${id}`);
+      
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -29,14 +27,14 @@ function ConfirmationPage() {
   };
 
   useEffect(() => {
-    fetchOrder(id);
-  }, [id]);
+    fetchOrder(); 
+  }, []);
 
   return (
     <div className={styles.confirmationPage}>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {/* {console.log("order:", order)} */}
+      {console.log("order:", order)}
       {order && <OrderConfirmation order={order} />}
     </div>
   );

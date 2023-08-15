@@ -3,12 +3,17 @@ import styles from "./styles/OrderConfirmation.module.css";
 
 function OrderConfirmation({ order }) {
   if (!order) {
-    return null; // or any fallback component/element you want to render when order is not available
-  }
+    return <p>Loading...</p>;
+   }
   const { name, address, id, items } = order;
 
-  const calculateTotalPrice = () =>
-    items.reduce((total, item) => total + item.item.price * item.quantity, 0);
+  function calculateTotalPrice() {
+    if (!items) {
+      return 0; 
+    }
+
+    return items.reduce((total, item) => total + item.item.price * item.quantity, 0);
+  }
 
   const totalPrice = calculateTotalPrice().toFixed(2);
 
