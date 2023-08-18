@@ -8,7 +8,7 @@ function OrderModal({ order, setOrderModal }) {
   const [formErrors, setFormErrors] = useState({
     name: "",
     phone: "",
-    address: "",
+    address: ""
   });
 
   const isValidPhoneNumber = (number) => {
@@ -51,14 +51,14 @@ function OrderModal({ order, setOrderModal }) {
     const response = await fetch("/api/orders", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         name,
         phone: formattedPhoneWithFormatting,
         address,
-        items: order,
-      }),
+        items: order
+      })
     });
 
     const data = await response.json();

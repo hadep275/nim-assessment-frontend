@@ -4,15 +4,18 @@ import styles from "./styles/OrderConfirmation.module.css";
 function OrderConfirmation({ order }) {
   if (!order) {
     return <p>Loading...</p>;
-   }
+  }
   const { name, address, id, items } = order;
 
   function calculateTotalPrice() {
     if (!items) {
-      return 0; 
+      return 0;
     }
 
-    return items.reduce((total, item) => total + item.item.price * item.quantity, 0);
+    return items.reduce(
+      (total, item) => total + item.item.price * item.quantity,
+      0
+    );
   }
 
   const totalPrice = calculateTotalPrice().toFixed(2);

@@ -9,15 +9,15 @@ function ConfirmationPage() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchOrder = async () => { 
+  const fetchOrder = async () => {
     try {
       const response = await fetch(`/api/orders/${id}`);
-      
+      const data = await response.json();
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json();
       setOrder(data);
     } catch (err) {
       setError(err);
@@ -27,14 +27,14 @@ function ConfirmationPage() {
   };
 
   useEffect(() => {
-    fetchOrder(); 
-  }, []);
+    setIsLoading(true);
+    fetchOrder();
+  }, [id]);
 
   return (
     <div className={styles.confirmationPage}>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {console.log("order:", order)}
       {order && <OrderConfirmation order={order} />}
     </div>
   );
