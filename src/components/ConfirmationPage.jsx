@@ -14,7 +14,9 @@ function ConfirmationPage() {
       const response = await fetch(`/api/orders/${id}`);
       const data = await response.json();
 
-      
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // }
 
       setOrder(data);
     } catch (err) {
